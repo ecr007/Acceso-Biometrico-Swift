@@ -48,3 +48,61 @@ context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationsWithBiometrics,Localiz
 Key: Privacy - Face ID Usage Description
 Value: "String donde se solicita acceso"
 ```
+
+ERRORES
+
+```
+context.evaluatePolicy(policy!, localizedReason: reasonString, reply: { (successAuth, error) in
+            DispatchQueue.main.async {
+             
+                if successAuth
+                {
+                    Success(true  , nil)
+                }
+                else
+                {
+                    guard let error = error else {
+                         Success(false  , "UnknownError")
+                        return
+                    }
+                    switch (error)
+                    {
+                    case LAError.authenticationFailed:
+                            Success(false  , error.localizedDescription)
+                        break
+                    case LAError.userCancel:
+                        Success(false  , error.localizedDescription)
+                        break
+                    case LAError.userFallback:
+                        Success(false  , error.localizedDescription)
+                        break
+                    case LAError.systemCancel:
+                        Success(false  , error.localizedDescription)
+                        break
+                    case LAError.passcodeNotSet:
+                        Success(false  , error.localizedDescription)
+                        break
+                    case LAError.touchIDNotAvailable:
+                        Success(false  , error.localizedDescription)
+                        break
+                    case LAError.touchIDNotEnrolled:
+                        Success(false  , error.localizedDescription)
+                        break
+                    case LAError.touchIDLockout:
+                        Success(false  , error.localizedDescription)
+                        break
+                    case LAError.appCancel:
+                        Success(false  , error.localizedDescription)
+                        break
+                    case LAError.invalidContext:
+                        Success(false  , error.localizedDescription)
+                        break
+                    default:
+                        break
+                    }
+                    return
+              }
+            }
+        })
+    }
+  ```
